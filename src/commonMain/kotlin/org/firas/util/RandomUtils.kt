@@ -5,6 +5,20 @@ import kotlin.random.Random
 
 class RandomUtils {
     companion object {
+        @JvmStatic
+        fun randomBoolean(): Boolean {
+            return Random.Default.nextBoolean()
+        }
+
+        @JvmStatic
+        fun randomNullableBoolean(): Boolean? {
+            return when (Random.Default.nextInt(3)) {
+                0 -> false
+                1 -> true
+                else -> null
+            }
+        }
+
         /**
          * @param min lower bound (inclusive)
          * @param max upper bound (inclusive)
