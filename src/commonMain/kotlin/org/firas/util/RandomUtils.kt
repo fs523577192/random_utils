@@ -230,6 +230,7 @@ class RandomUtils {
             return randomCIdentifier(1, maxLength)
         }
 
+        /* --== Mobile number ==-- */
         @JvmStatic
         fun randomChineseMobile(): String {
             return "1" + ('0'.toInt() + randomInt(3, 9)).toChar() + randomDigitString(9, 9)
@@ -266,14 +267,30 @@ class RandomUtils {
             return prefix + randomDigitString(8, 8)
         }
 
+        /* --== Date and time ==-- */
         @JvmStatic
         fun randomMonth(): Int {
             return randomInt(1, 12)
         }
 
         @JvmStatic
+        fun randomDayOfMonth(month: Int, isLeap: Boolean): Int {
+            return randomInt(1, when (month) {
+                1, 3, 5, 7, 8, 10, 12 -> 31
+                4, 6, 9, 11           -> 30
+                2                     -> if (isLeap) 29 else 28
+                else -> throw IllegalArgumentException("The month should be 1 to 12: $month")
+            })
+        }
+
+        @JvmStatic
         fun randomHour24(): Int {
             return Random.Default.nextInt(24)
+        }
+
+        @JvmStatic
+        fun randomMinuteOrSecond(): Int {
+            return Random.Default.nextInt(60)
         }
 
         private fun checkMinLength(minLength: Int) {
