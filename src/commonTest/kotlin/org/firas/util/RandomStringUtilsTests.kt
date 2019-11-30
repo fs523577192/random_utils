@@ -3,15 +3,17 @@ package org.firas.util
 import kotlin.test.Test
 import kotlin.test.assertTrue
 
-class RandomUtilsTests {
+class RandomStringUtilsTests {
     @Test
     fun testRandomAsciiString() {
+        val basicRandomUtils = BasicRandomUtils.getDefault()
+        val randomStringUtils = RandomStringUtils.getDefault()
         for (j in 0 until 1000) {
-            val a = RandomUtils.randomInt(0, 1000)
-            val b = RandomUtils.randomInt(0, 1000)
+            val a = basicRandomUtils.randomInt(0, 1000)
+            val b = basicRandomUtils.randomInt(0, 1000)
             var str: String
             if (a <= b) {
-                str = RandomUtils.randomAsciiString(a, b)
+                str = randomStringUtils.randomAsciiString(a, b)
                 try {
                     assertTrue(str.length in a .. b)
                 } catch (ex: AssertionError) {
@@ -19,7 +21,7 @@ class RandomUtilsTests {
                     throw ex
                 }
             } else {
-                str = RandomUtils.randomAsciiString(b, a)
+                str = randomStringUtils.randomAsciiString(b, a)
                 try {
                     assertTrue(str.length in b .. a)
                 } catch (ex: AssertionError) {
@@ -28,31 +30,23 @@ class RandomUtilsTests {
                 }
             }
             for (c in str) {
-                assertTrue(c.toInt() in ' '.toInt() .. '~'.toInt())
-            }
-
-            str = RandomUtils.randomAsciiString(a)
-            try {
-                assertTrue(str.length in 0..a)
-            } catch (ex: AssertionError) {
-                println("a is $a while str.length is " + str.length)
-                throw ex
-            }
-            for (c in str) {
-                assertTrue(c.toInt() in ' '.toInt() .. '~'.toInt())
+                assertTrue(c.toInt() in ' '.toInt() .. '~'.toInt() ||
+                        '\t' == c || '\n' == c || '\r' == c)
             }
         }
     }
 
     @Test
     fun testRandomUpperCaseAlphabetString() {
+        val basicRandomUtils = BasicRandomUtils.getDefault()
+        val randomStringUtils = RandomStringUtils.getDefault()
         val regExp = Regex("[A-Z]*")
         for (j in 0 until 1000) {
-            val a = RandomUtils.randomInt(0, 1000)
-            val b = RandomUtils.randomInt(0, 1000)
+            val a = basicRandomUtils.randomInt(0, 1000)
+            val b = basicRandomUtils.randomInt(0, 1000)
             var str: String
             if (a <= b) {
-                str = RandomUtils.randomUpperCaseAlphabetString(a, b)
+                str = randomStringUtils.randomUpperCaseAlphabeticString(a, b)
                 try {
                     assertTrue(str.length in a .. b)
                 } catch (ex: AssertionError) {
@@ -60,22 +54,13 @@ class RandomUtilsTests {
                     throw ex
                 }
             } else {
-                str = RandomUtils.randomUpperCaseAlphabetString(b, a)
+                str = randomStringUtils.randomUpperCaseAlphabeticString(b, a)
                 try {
                     assertTrue(str.length in b .. a)
                 } catch (ex: AssertionError) {
                     println("a is $a and b is $b while str.length is " + str.length)
                     throw ex
                 }
-            }
-            assertTrue(regExp.matches(str))
-
-            str = RandomUtils.randomUpperCaseAlphabetString(a)
-            try {
-                assertTrue(str.length in 0..a)
-            } catch (ex: AssertionError) {
-                println("a is $a while str.length is " + str.length)
-                throw ex
             }
             assertTrue(regExp.matches(str))
         }
@@ -83,13 +68,15 @@ class RandomUtilsTests {
 
     @Test
     fun testRandomLowerCaseAlphabetString() {
+        val basicRandomUtils = BasicRandomUtils.getDefault()
+        val randomStringUtils = RandomStringUtils.getDefault()
         val regExp = Regex("[a-z]*")
         for (j in 0 until 1000) {
-            val a = RandomUtils.randomInt(0, 1000)
-            val b = RandomUtils.randomInt(0, 1000)
+            val a = basicRandomUtils.randomInt(0, 1000)
+            val b = basicRandomUtils.randomInt(0, 1000)
             var str: String
             if (a <= b) {
-                str = RandomUtils.randomLowerCaseAlphabetString(a, b)
+                str = randomStringUtils.randomLowerCaseAlphabeticString(a, b)
                 try {
                     assertTrue(str.length in a .. b)
                 } catch (ex: AssertionError) {
@@ -97,22 +84,13 @@ class RandomUtilsTests {
                     throw ex
                 }
             } else {
-                str = RandomUtils.randomLowerCaseAlphabetString(b, a)
+                str = randomStringUtils.randomLowerCaseAlphabeticString(b, a)
                 try {
                     assertTrue(str.length in b .. a)
                 } catch (ex: AssertionError) {
                     println("a is $a and b is $b while str.length is " + str.length)
                     throw ex
                 }
-            }
-            assertTrue(regExp.matches(str))
-
-            str = RandomUtils.randomLowerCaseAlphabetString(a)
-            try {
-                assertTrue(str.length in 0..a)
-            } catch (ex: AssertionError) {
-                println("a is $a while str.length is " + str.length)
-                throw ex
             }
             assertTrue(regExp.matches(str))
         }
@@ -120,13 +98,15 @@ class RandomUtilsTests {
 
     @Test
     fun testRandomDigitString() {
+        val basicRandomUtils = BasicRandomUtils.getDefault()
+        val randomStringUtils = RandomStringUtils.getDefault()
         val regExp = Regex("\\d*")
         for (j in 0 until 1000) {
-            val a = RandomUtils.randomInt(0, 1000)
-            val b = RandomUtils.randomInt(0, 1000)
+            val a = basicRandomUtils.randomInt(0, 1000)
+            val b = basicRandomUtils.randomInt(0, 1000)
             var str: String
             if (a <= b) {
-                str = RandomUtils.randomDigitString(a, b)
+                str = randomStringUtils.randomNumericString(a, b)
                 try {
                     assertTrue(str.length in a .. b)
                 } catch (ex: AssertionError) {
@@ -134,22 +114,13 @@ class RandomUtilsTests {
                     throw ex
                 }
             } else {
-                str = RandomUtils.randomDigitString(b, a)
+                str = randomStringUtils.randomNumericString(b, a)
                 try {
                     assertTrue(str.length in b .. a)
                 } catch (ex: AssertionError) {
                     println("a is $a and b is $b while str.length is " + str.length)
                     throw ex
                 }
-            }
-            assertTrue(regExp.matches(str))
-
-            str = RandomUtils.randomDigitString(a)
-            try {
-                assertTrue(str.length in 0..a)
-            } catch (ex: AssertionError) {
-                println("a is $a while str.length is " + str.length)
-                throw ex
             }
             assertTrue(regExp.matches(str))
         }
@@ -157,13 +128,15 @@ class RandomUtilsTests {
 
     @Test
     fun testRandomAlphanumericString() {
+        val basicRandomUtils = BasicRandomUtils.getDefault()
+        val randomStringUtils = RandomStringUtils.getDefault()
         val regExp = Regex("[A-Z\\d]*", RegexOption.IGNORE_CASE)
         for (j in 0 until 1000) {
-            val a = RandomUtils.randomInt(0, 1000)
-            val b = RandomUtils.randomInt(0, 1000)
+            val a = basicRandomUtils.randomInt(0, 1000)
+            val b = basicRandomUtils.randomInt(0, 1000)
             var str: String
             if (a <= b) {
-                str = RandomUtils.randomAlphanumericString(a, b)
+                str = randomStringUtils.randomAlphanumericString(a, b)
                 try {
                     assertTrue(str.length in a .. b)
                 } catch (ex: AssertionError) {
@@ -171,22 +144,13 @@ class RandomUtilsTests {
                     throw ex
                 }
             } else {
-                str = RandomUtils.randomAlphanumericString(b, a)
+                str = randomStringUtils.randomAlphanumericString(b, a)
                 try {
                     assertTrue(str.length in b .. a)
                 } catch (ex: AssertionError) {
                     println("a is $a and b is $b while str.length is " + str.length)
                     throw ex
                 }
-            }
-            assertTrue(regExp.matches(str))
-
-            str = RandomUtils.randomAlphanumericString(a)
-            try {
-                assertTrue(str.length in 0..a)
-            } catch (ex: AssertionError) {
-                println("a is $a while str.length is " + str.length)
-                throw ex
             }
             assertTrue(regExp.matches(str))
         }
@@ -194,13 +158,15 @@ class RandomUtilsTests {
 
     @Test
     fun testRandomUpperCaseAlphanumericString() {
+        val basicRandomUtils = BasicRandomUtils.getDefault()
+        val randomStringUtils = RandomStringUtils.getDefault()
         val regExp = Regex("[A-Z\\d]*")
         for (j in 0 until 1000) {
-            val a = RandomUtils.randomInt(0, 1000)
-            val b = RandomUtils.randomInt(0, 1000)
+            val a = basicRandomUtils.randomInt(0, 1000)
+            val b = basicRandomUtils.randomInt(0, 1000)
             var str: String
             if (a <= b) {
-                str = RandomUtils.randomUpperCaseAlphanumericString(a, b)
+                str = randomStringUtils.randomUpperCaseAlphanumericString(a, b)
                 try {
                     assertTrue(str.length in a .. b)
                 } catch (ex: AssertionError) {
@@ -208,22 +174,13 @@ class RandomUtilsTests {
                     throw ex
                 }
             } else {
-                str = RandomUtils.randomUpperCaseAlphanumericString(b, a)
+                str = randomStringUtils.randomUpperCaseAlphanumericString(b, a)
                 try {
                     assertTrue(str.length in b .. a)
                 } catch (ex: AssertionError) {
                     println("a is $a and b is $b while str.length is " + str.length)
                     throw ex
                 }
-            }
-            assertTrue(regExp.matches(str))
-
-            str = RandomUtils.randomUpperCaseAlphanumericString(a)
-            try {
-                assertTrue(str.length in 0..a)
-            } catch (ex: AssertionError) {
-                println("a is $a while str.length is " + str.length)
-                throw ex
             }
             assertTrue(regExp.matches(str))
         }
@@ -231,13 +188,15 @@ class RandomUtilsTests {
 
     @Test
     fun testRandomLowerCaseAlphanumericString() {
+        val basicRandomUtils = BasicRandomUtils.getDefault()
+        val randomStringUtils = RandomStringUtils.getDefault()
         val regExp = Regex("[a-z\\d]*")
         for (j in 0 until 1000) {
-            val a = RandomUtils.randomInt(0, 1000)
-            val b = RandomUtils.randomInt(0, 1000)
+            val a = basicRandomUtils.randomInt(0, 1000)
+            val b = basicRandomUtils.randomInt(0, 1000)
             var str: String
             if (a <= b) {
-                str = RandomUtils.randomLowerCaseAlphanumericString(a, b)
+                str = randomStringUtils.randomLowerCaseAlphanumericString(a, b)
                 try {
                     assertTrue(str.length in a .. b)
                 } catch (ex: AssertionError) {
@@ -245,22 +204,13 @@ class RandomUtilsTests {
                     throw ex
                 }
             } else {
-                str = RandomUtils.randomLowerCaseAlphanumericString(b, a)
+                str = randomStringUtils.randomLowerCaseAlphanumericString(b, a)
                 try {
                     assertTrue(str.length in b .. a)
                 } catch (ex: AssertionError) {
                     println("a is $a and b is $b while str.length is " + str.length)
                     throw ex
                 }
-            }
-            assertTrue(regExp.matches(str))
-
-            str = RandomUtils.randomLowerCaseAlphanumericString(a)
-            try {
-                assertTrue(str.length in 0..a)
-            } catch (ex: AssertionError) {
-                println("a is $a while str.length is " + str.length)
-                throw ex
             }
             assertTrue(regExp.matches(str))
         }
@@ -268,13 +218,15 @@ class RandomUtilsTests {
 
     @Test
     fun testRandomCIdentifierString() {
+        val basicRandomUtils = BasicRandomUtils.getDefault()
+        val randomStringUtils = RandomStringUtils.getDefault()
         val regExp = Regex("[A-Z_]\\w*", RegexOption.IGNORE_CASE)
         for (j in 0 until 1000) {
-            val a = RandomUtils.randomInt(1, 1000)
-            val b = RandomUtils.randomInt(1, 1000)
+            val a = basicRandomUtils.randomInt(1, 1000)
+            val b = basicRandomUtils.randomInt(1, 1000)
             var str: String
             if (a <= b) {
-                str = RandomUtils.randomCIdentifier(a, b)
+                str = randomStringUtils.randomCIdentifier(a, b)
                 try {
                     assertTrue(str.length in a .. b)
                 } catch (ex: AssertionError) {
@@ -282,22 +234,13 @@ class RandomUtilsTests {
                     throw ex
                 }
             } else {
-                str = RandomUtils.randomCIdentifier(b, a)
+                str = randomStringUtils.randomCIdentifier(b, a)
                 try {
                     assertTrue(str.length in b .. a)
                 } catch (ex: AssertionError) {
                     println("a is $a and b is $b while str.length is " + str.length)
                     throw ex
                 }
-            }
-            assertTrue(regExp.matches(str))
-
-            str = RandomUtils.randomCIdentifier(a)
-            try {
-                assertTrue(str.length in 1 .. a)
-            } catch (ex: AssertionError) {
-                println("a is $a while str.length is " + str.length)
-                throw ex
             }
             assertTrue(regExp.matches(str))
         }
