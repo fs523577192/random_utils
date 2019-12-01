@@ -94,6 +94,17 @@ class BasicRandomUtils(private val random: Random) {
     }
 
     /**
+     * @return a Chinese character in Unicode range 4E00-9FE6
+     */
+    fun randomCommonChineseChar(): Char {
+        return this.randomInt(0x4E00, 0x9FE6).toChar()
+    }
+
+    fun randomChineseChar(): Char {
+        TODO()
+    }
+
+    /**
      * @return a random alphabet that may exist in a French word
      */
     fun randomFrenchAlphabet(): Char {

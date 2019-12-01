@@ -104,6 +104,16 @@ class RandomStringUtils(private val random: Random) {
         return builder.toString()
     }
 
+    fun randomCommonChineseString(minLength: Int, maxLength: Int): String {
+        checkMinLength(minLength)
+        val length = this.basicUtils.randomInt(minLength, maxLength)
+        val builder = StringBuilder()
+        for (i in 0 until length) {
+            builder.append(this.basicUtils.randomCommonChineseChar())
+        }
+        return builder.toString()
+    }
+
     /**
      * A C / C++ / Java identifier contains only alphanumeric characters and underscore('_')
      * and does NOT start with a digit
