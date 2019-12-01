@@ -1,9 +1,9 @@
-package org.firas.util
+package tech.firas.util
 
 import kotlin.random.Random
 import kotlin.jvm.JvmStatic
 
-import org.firas.util.BasicRandomUtils.Companion.checkMinLength
+import tech.firas.util.BasicRandomUtils.Companion.checkMinLength
 
 /**
  *

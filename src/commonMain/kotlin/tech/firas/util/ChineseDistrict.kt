@@ -1,4 +1,4 @@
-package org.firas.util
+package tech.firas.util
 
 import kotlin.jvm.JvmStatic
 
