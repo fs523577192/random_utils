@@ -33,3 +33,6 @@ You can use ChineseRelatedRandomUtils to generate a random Chinese mobile phone 
 ## What I want to do next
 1. Add a method to generate a random Chinese ID card number into ChineseRelatedRandomUtils
 1. Add a method to generate a random Chinese telephone area code into ChineseRelatedRandomUtils
+
+## License
+This is Open Source software released under the https://www.apache.org/licenses/LICENSE-2.0.html[Apache 2.0 license].
