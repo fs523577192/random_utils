@@ -1,5 +1,5 @@
 /*
- * Copyright $today.year-2019 the original author or authors.
+ * Copyright 2019-2019 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,6 +19,19 @@ import kotlin.test.Test
 
 class ChineseRelatedRandomUtilsTests {
     @Test
+    fun testRandomChineseMobile() {
+        val regExp = Regex("1[3-9]\\d{9}")
+        val utils = ChineseRelatedRandomUtils.getDefault()
+        for (i in 0 until 1000) {
+            val str = utils.randomChineseMobile()
+            val result = regExp.matches(str)
+            if (!result) {
+                kotlin.test.fail("$str is not a Chinese mobile phone number")
+            }
+        }
+    }
+
+    @Test
     fun testRandomChineseMobileStrict() {
         val regExp = Regex("1(3\\d|4[5-9]|5[0-35-9]|6[56]|7[2-8]|8\\d|9[1389])\\d{8}")
         val utils = ChineseRelatedRandomUtils.getDefault()
@@ -27,6 +40,19 @@ class ChineseRelatedRandomUtilsTests {
             val result = regExp.matches(str)
             if (!result) {
                 kotlin.test.fail("$str is not a Chinese mobile phone number")
+            }
+        }
+    }
+
+    @Test
+    fun testRandomChineseIdCardNumber() {
+        val regExp = Regex("[1-9]\\d{5}\\d{4}(0[1-9]|1[012])(0[1-9]|[12]\\d|3[01])\\d{3}(\\d|X)")
+        val utils = ChineseRelatedRandomUtils.getDefault()
+        for (i in 0 until 1000) {
+            val str = utils.randomChineseIdCardNumber()
+            val result = regExp.matches(str)
+            if (!result) {
+                kotlin.test.fail("$str is not a Chinese ID card number")
             }
         }
     }

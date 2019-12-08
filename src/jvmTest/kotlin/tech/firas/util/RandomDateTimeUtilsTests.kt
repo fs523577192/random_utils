@@ -41,6 +41,6 @@ class RandomDateTimeUtilsTests {
     }
 
     private fun ensureTwoDigits(n: Int): String {
-        return if (n >= 10) n.toString() else ("0" + n)
+        return if (n >= 10) n.toString() else ("0$n")
     }
 }

@@ -38,6 +38,8 @@ class ChineseRelatedRandomUtils(private val random: Random) {
                             else BasicRandomUtils(this.random)
     private val randomStringUtils = if (Random.Default == this.random) RandomStringUtils.getDefault()
                             else RandomStringUtils(this.random)
+    private val randomDateTimeUtils = if (Random.Default == this.random) RandomDateTimeUtils.getDefault()
+                            else RandomDateTimeUtils(this.random)
 
     /* --== Mobile number ==-- */
     fun randomChineseMobile(): String {
@@ -74,4 +76,31 @@ class ChineseRelatedRandomUtils(private val random: Random) {
         }
         return prefix + this.randomStringUtils.randomNumericString(8, 8)
     }
+
+    fun randomChineseIdCardNumber(): String {
+        val i = this.random.nextInt(_ChineseIdCardPrefix.size)
+        val prefix = _ChineseIdCardPrefix[i]
+
+        val year = this.basicUtils.randomInt(1910, 2019)
+        val month = this.randomDateTimeUtils.randomMonth()
+        val dayOfMonth = this.randomDateTimeUtils.randomDayOfMonth(month, year)
+        val birthday = "$year" + ensureTwoDigits(month) + ensureTwoDigits(dayOfMonth)
+
+        val suffix = this.randomStringUtils.randomNumericString(3, 3)
+        val merged = "$prefix$birthday$suffix"
+        var sum = 0
+        for (i in 0 until idCardCoef.size) {
+            sum += (merged[i].toInt() - '0'.toInt()) * idCardCoef[i]
+        }
+        val checkSum = idCardcheckNumberArray[sum % idCardcheckNumberArray.size]
+        return "$merged$checkSum"
+    }
+
+    private val idCardCoef = intArrayOf(7, 9, 10, 5, 8, 4, 2, 1, 6, 3, 7, 9, 10, 5, 8, 4, 2)
+    private val idCardcheckNumberArray = charArrayOf('1', '0', 'X', '9', '8', '7', '6', '5', '4', '3', '2')
+    private fun ensureTwoDigits(n: Int): String {
+        return if (n >= 10) n.toString() else ("0$n")
+    }
 }
+
+expect internal val _ChineseIdCardPrefix: List<String>
