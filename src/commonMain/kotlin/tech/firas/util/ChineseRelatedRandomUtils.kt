@@ -48,19 +48,19 @@ class ChineseRelatedRandomUtils(private val random: Random) {
     /**
      * 中国移动手机号码段（2019）
      */
-    private val chineseMobileRange = arrayOf("134", "135", "136", "137", "138",
-            "150", "151", "152", "157", "158", "159", "165", "172", "178",
+    private val chineseMobileRange = arrayOf("134", "135", "136", "137", "138", "139",
+            "147", "148", "150", "151", "152", "157", "158", "159", "165", "172", "178",
             "182", "183", "184", "187", "188", "198")
     /**
      * 中国电信手机号码段（2019）
      */
     private val chineseTelecomRange = arrayOf("133", "149", "153", "173", "174", "177",
-            "180", "181", "189", "191", "199")
+            "180", "181", "189", "191", "193", "199")
     /**
      * 中国联通手机号码段（2019）
      */
-    private val chineseUnicomRange = arrayOf("130", "131", "132", "155", "156", "166",
-            "171", "175", "176", "185", "186")
+    private val chineseUnicomRange = arrayOf("130", "131", "132", "145", "146", "155", "156", "166",
+            "175", "176", "185", "186")
 
     fun randomChineseMobileStrict(): String {
         val i = this.random.nextInt(chineseMobileRange.size + chineseTelecomRange.size + chineseUnicomRange.size)
